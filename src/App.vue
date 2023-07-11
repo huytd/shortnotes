@@ -29,8 +29,8 @@ ShortNotes embraces the nature of STM by making your notes fade away automatical
 
 ## Usage tips
 
-1. Click on a note to add an extra 5 minutes to its lifetime
-2. Double click on a note to copy its content to clipboard
+1. Click on a note to add an extra 5 minutes to its lifetime, as well as copy its content to the clipboard
+2. Double click on a note to delete it
 
 Read more: [https://en.wikipedia.org/wiki/Short-term_memory](https://en.wikipedia.org/wiki/Short-term_memory)
 `;
@@ -67,6 +67,7 @@ const createNote = (event) => {
   <div class="note-list" ref="noteList">
     <Note :note="INTRODUCTION_NOTE" @destroy="destroyNote" />
   </div>
+  <div class="placeholder">Dump your 🧠 here, write something!</div>
   <textarea autofocus ref="noteInput" @keypress.enter="createNote"></textarea>
   <div class="help-text">
     Press ↵ Enter to save or ⇧ Shift + ↵ Enter to add new line
@@ -103,6 +104,22 @@ body {
 .note-list {
   flex: 1;
   overflow-y: auto;
+}
+
+.placeholder {
+  display: none;
+}
+
+.note-list:empty + .placeholder {
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+  top: 50%;
+  color: var(--primary-ui-color);
+  font-size: 1.5em;
 }
 
 textarea {

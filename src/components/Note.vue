@@ -29,15 +29,16 @@ let countDownTimer = setInterval(() => {
   } else {
     clearInterval(countDownTimer);
     countDownTimer = null;
-    emit("destroy", self);
+    destroy();
   }
 }, 1000);
 
-const renew = () => {
-  timeLeft.value = LIFETIME_BEGIN;
+const destroy = () => {
+  emit("destroy", self);
 };
 
-const copyToClipboard = () => {
+const renew = () => {
+  timeLeft.value = LIFETIME_BEGIN;
   navigator.clipboard.writeText(props.note);
 };
 </script>
@@ -48,7 +49,7 @@ const copyToClipboard = () => {
     ref="self"
     :style="{ opacity: opacity }"
     @click="renew"
-    @dblclick="copyToClipboard"
+    @dblclick="destroy"
   >
     <div class="time">{{ createdAt }}</div>
     <div class="content">
